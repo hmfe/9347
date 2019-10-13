@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS-wizardry</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        position: relative;
+        width: 12rem;
+        height: 5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        background: linear-gradient(to right, #f4af5d, #f19539);
+        padding-right: 5rem;
+        border-color: #83807e;
+        cursor: pointer;
+        outline: none;
+      }
+      button::after {
+        font-size: 3.5rem;
+        font-weight: 400;
+        content: "\00d7";
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 1;
+        background-color: white;
+        border-radius: 4rem;
+      }
+    </style>
+    <button tabindex="0" title="Delete button" aria-label="Delete button">
+      Delete
+    </button>
+  </body>
+</html>
