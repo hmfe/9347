@@ -110,6 +110,7 @@ const App = () => {
 const Container = styled.div`
   position: absolute;
   width: 100%;
+  max-width: 500px;
   max-height: 500px;
   height: 500px;
   top: 50%;
@@ -122,6 +123,7 @@ const Container = styled.div`
 const History = styled.div`
   position: absolute;
   bottom: 0;
+  width: 97%;
 `;
 
 const Header = styled.div`
