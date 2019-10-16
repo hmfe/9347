@@ -109,7 +109,7 @@ const App = () => {
 
 const Container = styled.div`
   position: absolute;
-  width: 500px;
+  width: 100%;
   max-height: 500px;
   height: 500px;
   top: 50%;
