@@ -87,9 +87,9 @@ const App = () => {
           ))}
       </Select>
       {selected && selected.length > 0 && (
-        <History>
+        <>
           <Header>
-            <Title>Search History</Title>
+            <h3>Search History</h3>
             <Clear
               title={"Clear search history"}
               aria-label={"Clear search history"}
@@ -101,29 +101,19 @@ const App = () => {
             </Clear>
           </Header>
           <List data={selected} onRemove={onRemove} />
-        </History>
+        </>
       )}
     </Container>
   );
 };
 
 const Container = styled.div`
-  position: absolute;
   width: 100%;
   max-width: 500px;
   max-height: 500px;
   height: 500px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: whitesmoke;
   padding: 0.5rem;
-`;
-
-const History = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 97%;
 `;
 
 const Header = styled.div`
@@ -132,8 +122,6 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 8px;
 `;
-
-const Title = styled.h3``;
 
 const Clear = styled.a`
   text-decoration: underline;
