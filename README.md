@@ -63,11 +63,11 @@ When done, push your branch and let us know it’s done by making a pull request
 
 **Good Luck and have fun!**
 
+## Some info
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-
-This demo was created with create-react-app
 
 In the project directory, you can run:
 
