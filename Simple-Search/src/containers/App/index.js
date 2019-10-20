@@ -18,7 +18,7 @@ const App = () => {
     setRemote({ data: [], fetching: value.length > 0 });
     if (value.length > 0) {
       fetch(
-        `https://www.food2fork.com/api/search?key=927b0e4dfc6e972eaa0907a393a7e75e&q=${value}`
+        `https://www.food2fork.com/api/search?key=2dec20875ceda4da050781b02539d971&q=${value}`
       )
         .then(response => response.json())
         .then(body => {
@@ -97,7 +97,7 @@ const Container = styled.div`
   max-height: 500px;
   height: 500px;
   background-color: whitesmoke;
-  padding: 0.5rem;
+  // padding: 0.5rem;
 `;
 
 const Header = styled.div`
@@ -109,8 +109,9 @@ const Header = styled.div`
 const Clear = styled.a`
   text-decoration: underline;
   color: #515151;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 0.9em;
+  margin-top: 1.27em;
+  cursor: pointer;
 `;
 
 export default App;

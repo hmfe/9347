@@ -7,14 +7,16 @@ const List = ({ data, onRemove }) => (
     {data.map((item, i) => (
       <Item key={item.key}>
         <Label>{item.label}</Label>
-        <Date>{item.date}</Date>
-        <Remove
-          role="button"
-          tabIndex={i}
-          title={`remove item - ${item.label}`}
-          aria-label={`remove item - ${item.label}`}
-          onClick={() => onRemove(i)}
-        />
+        <RHSContainer>
+          <Date>{item.date}</Date>
+          <Remove
+            role="button"
+            tabIndex={i}
+            title={`remove item - ${item.label}`}
+            aria-label={`remove item - ${item.label}`}
+            onClick={() => onRemove(i)}
+          />
+        </RHSContainer>
       </Item>
     ))}
   </Container>
@@ -29,8 +31,22 @@ const Container = styled.ul`
   list-style-type: none;
 `;
 
+const Label = styled.span`
+  max-width: 58%;
+  width: 270px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #303030;
+`;
+
+const RHSContainer = styled.div`
+  width: 32%;
+`;
+
 const Item = styled.li`
   display: inline-flex;
+  justify-content: space-between;
   width: 100%;
   padding: 8px;
   border-top: 1px solid lightgrey;
@@ -39,27 +55,17 @@ const Item = styled.li`
   }
 `;
 
-const Label = styled.span`
-  max-width: 280px;
-  width: 270px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #303030;
-`;
-
 const Date = styled.span`
   width: 140px;
   font-size: 12px;
   color: #c6c6c6;
-  margin-right: 30px;
-  margin-left: 20px;
   margin-top: 3px;
+  margin-right: 10px;
 `;
 
 const Remove = styled.a`
+  cursor: pointer;
   position: relative;
-  right: 15px;
   width: 16px;
   height: 16px;
   opacity: 0.3;
