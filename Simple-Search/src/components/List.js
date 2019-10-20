@@ -41,7 +41,8 @@ const Label = styled.span`
 `;
 
 const RHSContainer = styled.div`
-  width: 32%;
+  width: 30%;
+  margin-right: 2%;
 `;
 
 const Item = styled.li`
