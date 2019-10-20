@@ -23,14 +23,24 @@ const Select = ({ fetching, onSearch, onSelect, data, selected }) => {
     }
   };
 
+  const setAndSend = val => {
+    setQuery(val);
+    onSearch(val);
+  };
+
   return (
     <Container>
       <Input
         placeholder="Search recipes"
         value={query}
-        onChange={e => !setQuery(e.target.value) && onSearch(e.target.value)}
+        onChange={e => setAndSend(e.target.value)}
       />
-      <List showBorder={data.length > 0 || fetching}>{renderItems()}</List>
+      {query.length > 0 && (
+        <>
+          <Clear onClick={() => setAndSend("")} />
+          <List showBorder={data.length > 0 || fetching}>{renderItems()}</List>
+        </>
+      )}
     </Container>
   );
 };
@@ -50,6 +60,32 @@ const Input = styled.input`
   outline: none;
   margin-top: 10px;
   border: 2px solid lightgray;
+`;
+
+const Clear = styled.span`
+  cursor: pointer;
+  position: absolute;
+  left: 492px;
+  top: 37px;
+
+  &:before,
+  &:after {
+    transform: rotate(-45deg);
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -5px;
+    margin-left: -25px;
+    display: block;
+    height: 2px;
+    width: 15px;
+    background-color: #9e9e9e;
+  }
+
+  &:after {
+    transform: rotate(45deg);
+  }
 `;
 
 const List = styled.ul`
