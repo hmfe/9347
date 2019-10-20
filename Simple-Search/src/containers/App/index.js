@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Select, Spin } from "antd";
 import debounce from "lodash/debounce";
-
-import List from "../../components/List";
+import { List, Select } from "../../components";
 import { getDateWithFormat } from "../../utils/date";
-
-import "antd/dist/antd.css";
-
-const { Option } = Select;
 
 const App = () => {
   const [lastFetched, setLastFetched] = useState(0);
@@ -21,29 +15,31 @@ const App = () => {
   const fetchRecipe = debounce(value => {
     setLastFetched(lastFetched + 1);
     const fetchId = lastFetched;
-    setRemote({ data: [], fetching: true });
-    fetch(
-      `https://www.food2fork.com/api/search?key=27a5d51a4f75a9ca8d025232aea9a29a&q=${value}`
-    )
-      .then(response => response.json())
-      .then(body => {
-        if (fetchId !== lastFetched) {
-          // for fetch callback order
-          return;
-        }
-        if (Object.prototype.hasOwnProperty.call(body, "error")) {
-          return alert("API key exhausted.");
-        }
-        const data = body.recipes.map(recipe => ({
-          label: recipe.title,
-          value: recipe.source_url
-        }));
-        setRemote({ data, fetching: false });
-      })
-      .catch(() => setRemote({ data: [], fetching: false }));
+    setRemote({ data: [], fetching: value.length > 0 });
+    if (value.length > 0) {
+      fetch(
+        `https://www.food2fork.com/api/search?key=927b0e4dfc6e972eaa0907a393a7e75e&q=${value}`
+      )
+        .then(response => response.json())
+        .then(body => {
+          if (fetchId !== lastFetched) {
+            // for fetch callback order
+            return;
+          }
+          if (Object.prototype.hasOwnProperty.call(body, "error")) {
+            return alert("API key exhausted.");
+          }
+          const data = body.recipes.map(recipe => ({
+            label: recipe.title.toLowerCase(),
+            key: recipe.source_url
+          }));
+          setRemote({ data, fetching: false });
+        })
+        .catch(() => setRemote({ data: [], fetching: false }));
+    }
   }, 300);
 
-  const handleChange = value => {
+  const handleSelect = value => {
     if (value) {
       const found = selected.find(x => x.key === value.key);
       if (!found) {
@@ -68,24 +64,12 @@ const App = () => {
   return (
     <Container>
       <Select
-        allowClear
-        autoClearSearchValue
-        showSearch
-        labelInValue
-        placeholder="Search recipes"
-        notFoundContent={fetching ? <Spin size="small" /> : null}
-        filterOption={false}
-        showArrow={false}
-        defaultActiveFirstOption={false}
         onSearch={fetchRecipe}
-        onChange={handleChange}
-        style={{ width: "100%" }}
-      >
-        {data &&
-          data.map(recipe => (
-            <Option key={recipe.value}>{recipe.label}</Option>
-          ))}
-      </Select>
+        onSelect={handleSelect}
+        fetching={fetching}
+        data={data}
+        selected={selected}
+      />
       {selected && selected.length > 0 && (
         <>
           <Header>
@@ -117,7 +101,6 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  margin-top: 10rem;
   display: flex;
   justify-content: space-between;
   padding: 8px;

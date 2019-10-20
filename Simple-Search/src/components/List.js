@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -21,7 +21,7 @@ const List = ({ data, onRemove }) => (
 );
 
 const Container = styled.ul`
-  max-height: 230px;
+  max-height: 176px;
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
@@ -95,4 +95,4 @@ List.propTypes = {
   onRemove: PropTypes.func
 };
 
-export default List;
+export default memo(List);
