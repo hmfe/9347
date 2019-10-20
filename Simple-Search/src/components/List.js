@@ -24,7 +24,7 @@ const List = ({ data, onRemove }) => (
 
 const Container = styled.ul`
   max-height: 30%;
-  margin-left: 5%;
+  margin-left: 3%;
   margin-right: 5%;
   overflow-y: auto;
   overflow-x: hidden;

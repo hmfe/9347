@@ -59,16 +59,15 @@ const List = styled.ul`
   padding-left: 1px;
   border: ${p => (p.showBorder ? 2 : 0)}px solid lightgray;
   max-height: 150px;
+  width: calc(100% - 4px);
   overflow-x: hidden;
   overflow-y: auto;
 `;
 
 const Item = styled.li`
-  padding: 5px;
-  padding-top: 8px;
+  padding: 10px;
   margin-top: 2px;
   cursor: pointer;
-  height: 25px;
   background-color: ${p => (p.selected ? "lightgrey" : "white")};
 `;
 

@@ -73,7 +73,7 @@ const App = () => {
       {selected && selected.length > 0 && (
         <>
           <Header>
-            <h3>Search History</h3>
+            <h4>Search History</h4>
             <Clear
               title={"Clear search history"}
               aria-label={"Clear search history"}
@@ -103,15 +103,16 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 8px;
-  margin-left: 5%;
+  height: 2em;
+  margin-left: 3%;
   margin-right: 5%;
 `;
 
 const Clear = styled.a`
   text-decoration: underline;
   color: #515151;
-  font-size: 0.9em;
-  margin-top: 1.27em;
+  font-size: 0.7em;
+  margin-top: 2em;
   cursor: pointer;
 `;
 
