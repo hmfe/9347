@@ -64,9 +64,9 @@ const Input = styled.input`
 
 const Clear = styled.span`
   cursor: pointer;
-  position: absolute;
+  position: relative;
   left: 98%;
-  top: 37px;
+  top: -18px;
 
   &:before,
   &:after {
