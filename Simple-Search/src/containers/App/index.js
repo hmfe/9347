@@ -97,13 +97,14 @@ const Container = styled.div`
   max-height: 500px;
   height: 500px;
   background-color: whitesmoke;
-  // padding: 0.5rem;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 8px;
+  margin-left: 5%;
+  margin-right: 5%;
 `;
 
 const Clear = styled.a`

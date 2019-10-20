@@ -23,10 +23,11 @@ const List = ({ data, onRemove }) => (
 );
 
 const Container = styled.ul`
-  max-height: 176px;
+  max-height: 30%;
+  margin-left: 5%;
+  margin-right: 5%;
   overflow-y: auto;
   overflow-x: hidden;
-  width: 100%;
   padding-left: 0;
   list-style-type: none;
 `;
@@ -42,7 +43,7 @@ const Label = styled.span`
 
 const RHSContainer = styled.div`
   width: 30%;
-  margin-right: 2%;
+  margin-right: 5%;
 `;
 
 const Item = styled.li`

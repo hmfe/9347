@@ -36,16 +36,20 @@ const Select = ({ fetching, onSearch, onSelect, data, selected }) => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  margin: 5px;
+  margin-top: 0px;
+  width: 97%;
 `;
 
 const Input = styled.input`
   font-family: inherit;
   font-size: 16px;
-  width: 97%;
+  width: calc(100% - 13px);
   height: 40px;
   padding-left: 10px;
   outline: none;
+  margin-top: 10px;
+  border: 2px solid lightgray;
 `;
 
 const List = styled.ul`
@@ -53,7 +57,7 @@ const List = styled.ul`
   background: white;
   margin-top: 2px;
   padding-left: 1px;
-  border: ${p => (p.showBorder ? 1 : 0)}px solid lightgray;
+  border: ${p => (p.showBorder ? 2 : 0)}px solid lightgray;
   max-height: 150px;
   overflow-x: hidden;
   overflow-y: auto;
