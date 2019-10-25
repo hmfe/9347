@@ -10,30 +10,84 @@
         padding: 0;
       }
       button {
+        color: #222222;
         position: relative;
-        width: 12rem;
+        width: auto;
+        min-width: 12rem;
         height: 5rem;
         font-size: 2rem;
         font-weight: 600;
         background: linear-gradient(to right, #f4af5d, #f19539);
         padding-right: 5rem;
-        border-color: #83807e;
+        border: 1px solid #83807e;
         cursor: pointer;
         outline: none;
       }
+      button:hover {
+        border-color: #f19539;
+      }
+      @keyframes glow {
+        0% {
+          background-position: 0 0;
+        }
+        50% {
+          background-position: 400% 0;
+        }
+        100% {
+          background-position: 0 0;
+        }
+      }
+      button:before {
+        content: "";
+        background: linear-gradient(
+          45deg,
+          #f8841d,
+          #fa6316,
+          #fc420f,
+          #fa6316,
+          #f8841d
+        );
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glow 20s linear infinite;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        border-radius: 10px;
+      }
+      button:hover:before {
+        opacity: 1;
+      }
       button::after {
-        font-size: 3.5rem;
+        color: #222222;
+        font-size: 3rem;
         font-weight: 400;
         content: "\00d7";
         height: 4rem;
         width: 4rem;
+        line-height: 3.5rem;
         position: absolute;
-        left: 60%;
+        right: 5px;
         top: 50%;
         transform: translateY(-50%);
-        line-height: 1;
         background-color: white;
         border-radius: 4rem;
+      }
+      button:hover::after {
+        border-radius: 0;
+        height: 100%;
+        width: 100%;
+        right: 0px;
+        line-height: 4rem;
+        border: 1px solid #f19539;
+        background-color: #f19539;
+        color: cornsilk;
+        transition: all 0.4s ease-in-out;
       }
     </style>
     <button tabindex="0" title="Delete button" aria-label="Delete button">
