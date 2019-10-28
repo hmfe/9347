@@ -18,7 +18,7 @@ const App = () => {
     setRemote({ data: [], fetching: value.length > 0 });
     if (value.length > 0) {
       fetch(
-        `https://www.food2fork.com/api/search?key=2dec20875ceda4da050781b02539d971&q=${value}`
+        `https://www.food2fork.com/api/search?key=471d64f81c994c3edf2e1fe060c2581b&q=${value}`
       )
         .then(response => response.json())
         .then(body => {
@@ -42,7 +42,9 @@ const App = () => {
   const handleSelect = value => {
     if (value) {
       const found = selected.find(x => x.key === value.key);
-      if (!found) {
+      if (found) {
+        setSelected(selected.filter(x => x.key !== value.key));
+      } else {
         setSelected([
           ...selected,
           {

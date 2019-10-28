@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { boldify } from "../utils/string";
 
@@ -8,7 +8,14 @@ const Select = ({ fetching, onSearch, onSelect, data, selected }) => {
 
   const renderItems = () => {
     if (fetching) {
-      return <Loading />;
+      return (
+        <Ellipsis>
+          <Dot />
+          <Dot />
+          <Dot />
+          <Dot />
+        </Ellipsis>
+      );
     }
     if (!fetching && data.length > 0) {
       return data.map(d => (
@@ -31,6 +38,7 @@ const Select = ({ fetching, onSearch, onSelect, data, selected }) => {
   return (
     <Container>
       <Input
+        showShadow={data.length > 0 || fetching}
         placeholder="Search recipes"
         value={query}
         onChange={e => setAndSend(e.target.value)}
@@ -52,19 +60,30 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
+  position: relative;
+  padding-left: 20px;
+  z-index: 1;
   font-family: inherit;
   font-size: 16px;
-  width: calc(100% - 13px);
+  width: calc(100% - 20px);
   height: 40px;
-  padding-left: 10px;
   outline: none;
   margin-top: 10px;
   border: 2px solid lightgray;
+  border-radius: 15px;
+  ${p =>
+    p.showShadow &&
+    css`
+      -webkit-box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.3);
+    `}
 `;
 
 const Clear = styled.span`
   cursor: pointer;
   position: relative;
+  z-index: 2;
   left: 98%;
   top: -18px;
 
@@ -91,13 +110,42 @@ const Clear = styled.span`
 const List = styled.ul`
   list-style-type: none;
   background: white;
-  margin-top: 2px;
   padding-left: 1px;
   border: ${p => (p.showBorder ? 2 : 0)}px solid lightgray;
-  max-height: 150px;
-  width: calc(100% - 4px);
+  border-top: none;
+  max-height: 164px;
   overflow-x: hidden;
   overflow-y: auto;
+  width: 95%;
+  position: relative;
+  left: 2%;
+  margin-top: 0px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+`;
+
+const colors = [
+  "#ff7f82",
+  "#ffa260",
+  "#ff6b6b",
+  "#ff99cc",
+  "#ffcc99",
+  "#99ccff",
+  "#cc99ff",
+  "#899aff",
+  "#8bdebc",
+  "#e64864"
+];
+
+const changeColor = selected => keyframes`
+  0% {
+    background-color: ${selected ? "lightgrey" : "white"}
+  }
+  100% {
+    background-color: ${
+      selected ? "lightgrey" : colors[Math.floor(Math.random() * colors.length)]
+    }
+  }
 `;
 
 const Item = styled.li`
@@ -105,30 +153,73 @@ const Item = styled.li`
   margin-top: 2px;
   cursor: pointer;
   background-color: ${p => (p.selected ? "lightgrey" : "white")};
+  color: #333;
+  &:hover {
+    animation: ${p => changeColor(p.selected)} 0.4s ease-in;
+    /* this is used in order to make the background fill permanent. */
+    animation-fill-mode: forwards;
+  }
 `;
 
-const rotate = keyframes`
+const Ellipsis = styled.div`
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const first = keyframes`
   0% {
-    transform: rotate(0deg);
+    transform: scale(0);
   }
   100% {
-    transform: rotate(360deg);
+    transform: scale(1);
   }
 `;
 
-const Loading = styled.div`
-  width: 32px;
-  height: 32px;
-  &:after {
-    content: " ";
-    display: block;
-    height: 20px;
-    margin: 1px;
-    margin-top: 3px;
-    border-radius: 50%;
-    border: 4px solid #cc071e;
-    border-color: #cc071e transparent #cc071e transparent;
-    animation: ${rotate} 1.2s linear infinite;
+const second = keyframes`
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+`;
+
+const third = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+`;
+
+const Dot = styled.div`
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #333;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  &:nth-child(1) {
+    left: 6px;
+    animation: ${first} 0.6s infinite;
+  }
+  &:nth-child(2) {
+    left: 6px;
+    animation: ${second} 0.6s infinite;
+  }
+  &:nth-child(3) {
+    left: 26px;
+    animation: ${second} 0.6s infinite;
+  }
+  &:nth-child(4) {
+    left: 45px;
+    animation: ${third} 0.6s infinite;
   }
 `;
 
